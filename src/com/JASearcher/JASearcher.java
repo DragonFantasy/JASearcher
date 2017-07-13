@@ -12,6 +12,8 @@ public class JASearcher
 	
 	public static void main(String[] args)
 	{
+		System.out.println("start time");
+		System.out.println(new Date());
 		Runnable main_loop = new Runnable() {
 			@Override
 			public void run() 
