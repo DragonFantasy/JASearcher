@@ -59,7 +59,8 @@ public class JASearcher
 					}
 					finally
 					{
-						try {
+						try 
+						{
 							Thread.sleep(60*1000);
 						} catch (InterruptedException e1) {
 							e1.printStackTrace();
