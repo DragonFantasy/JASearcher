@@ -3,6 +3,7 @@ package com.JASearcher;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.jsoup.nodes.Element;
 
@@ -18,6 +19,7 @@ public class JASearcher
 			@Override
 			public void run() 
 			{
+				System.out.println("main loop active");
 				boolean flag = true;
 				while(flag)
 				{
@@ -72,5 +74,62 @@ public class JASearcher
 			}
 		};
 		main_loop.run();
+		
+		Runnable metroid_loop = new Runnable() {
+			@Override
+			public void run() 
+			{
+				System.out.println("metroid loop active");
+				ArrayList<String> url_list = new ArrayList<String>();
+				url_list.add("https://www.amazon.co.uk/dp/B07339W2V7/ref=olp_product_details?_encoding=UTF8&me=A3P5ROKL5A1OLE");
+				url_list.add("https://www.amazon.fr/dp/B07339W2V7/ref=olp_product_details?_encoding=UTF8&me=A1X6FK5RDHNB96");
+				url_list.add("https://www.amazon.de/gp/product/B07339W2V7");
+				url_list.add("https://www.amazon.it/Metroid-Returns-Collectors-Limited-Nintendo/dp/B073Q3RG39/ref=sr_1_2?s=videogames&ie=UTF8&qid=1499746896&sr=1-2&keywords=samus");
+				url_list.add("https://www.amazon.es/Metroid-Samus-Returns-Edici%C3%B3n-Legacy/dp/B07339W2V7/ref=zg_bs_videogames_9?_encoding=UTF8&psc=1&refRID=6Q9584BX5EVRJ6188697");
+				while(url_list.size() > 0)
+				{
+					try {
+						for(int i = url_list.size() - 1; i >= 0; i--)
+						{
+							String url = url_list.get(i);
+							PageContent page = new PageContent(url);
+							Element buy_element = page.getElementById("add-to-cart-button");
+							if(buy_element == null)
+							{
+								continue;
+							}
+							String title_name = page.getElementById("productTitle").text();
+							System.out.println(buy_element);
+							System.out.println(title_name);
+							Mail.sendMail(title_name+"到货啦", title_name+"到货啦！<br>"+url, "843801972@qq.com");
+							url_list.remove(url);
+						}
+					} 
+					catch (Exception e) 
+					{
+						System.out.println(new Date());
+						if(e instanceof SocketTimeoutException)
+						{
+							System.out.println("time out");
+						}
+						else
+						{
+							e.printStackTrace();
+						}
+					}
+					finally
+					{
+						try 
+						{
+							Thread.sleep(60*1000);
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+				}
+			}
+		};
+		
+		metroid_loop.run();
 	}
 }
