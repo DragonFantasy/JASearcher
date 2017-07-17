@@ -15,7 +15,7 @@ public class JASearcher
 	{
 		System.out.println("start time");
 		System.out.println(new Date());
-		Runnable main_loop = new Runnable() {
+		Thread main_loop = new Thread(new Runnable() {
 			@Override
 			public void run() 
 			{
@@ -72,10 +72,10 @@ public class JASearcher
 					}
 				}
 			}
-		};
-		main_loop.run();
+		});
+		main_loop.start();
 		
-		Runnable metroid_loop = new Runnable() {
+		Thread metroid_loop = new Thread(new Runnable() {
 			@Override
 			public void run() 
 			{
@@ -128,8 +128,8 @@ public class JASearcher
 					}
 				}
 			}
-		};
+		});
 		
-		metroid_loop.run();
+		metroid_loop.start();
 	}
 }
