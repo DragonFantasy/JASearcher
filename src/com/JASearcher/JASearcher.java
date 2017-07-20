@@ -1,9 +1,9 @@
 package com.JASearcher;
 
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
 import org.jsoup.nodes.Element;
 
@@ -52,9 +52,10 @@ public class JASearcher
 					catch (Exception e) 
 					{
 						System.out.println(new Date());
-						if(e instanceof SocketTimeoutException)
+						if(e instanceof SocketTimeoutException
+								|| e instanceof UnknownHostException)
 						{
-							System.out.println("time out");
+							System.out.println(e);
 						}
 						else
 						{
@@ -65,7 +66,7 @@ public class JASearcher
 					{
 						try 
 						{
-							Thread.sleep(60*1000);
+							Thread.sleep(10*1000);
 						} catch (InterruptedException e1) {
 							e1.printStackTrace();
 						}
@@ -108,9 +109,10 @@ public class JASearcher
 					catch (Exception e) 
 					{
 						System.out.println(new Date());
-						if(e instanceof SocketTimeoutException)
+						if(e instanceof SocketTimeoutException
+								|| e instanceof UnknownHostException)
 						{
-							System.out.println("time out");
+							System.out.println(e);
 						}
 						else
 						{
@@ -121,7 +123,7 @@ public class JASearcher
 					{
 						try 
 						{
-							Thread.sleep(60*1000);
+							Thread.sleep(10*1000);
 						} catch (InterruptedException e1) {
 							e1.printStackTrace();
 						}
