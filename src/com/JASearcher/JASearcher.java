@@ -103,6 +103,7 @@ public class JASearcher
 							System.out.println(buy_element);
 							System.out.println(title_name);
 							Mail.sendMail(title_name+"到货啦", title_name+"到货啦！<br>"+url, "843801972@qq.com");
+							
 							url_list.remove(url);
 						}
 					} 
